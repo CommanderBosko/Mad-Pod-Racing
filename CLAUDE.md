@@ -57,9 +57,7 @@ A full physics simulator that A/B compares two compiled bot binaries by racing e
 
 ```bash
 # Build the harness (one-time, or after editing anything in tests/harness/)
-g++ -std=c++17 -O2 -Wall -Wextra -o tests/harness/mpr_harness \
-  tests/harness/harness_main.cpp tests/harness/race.cpp tests/harness/physics.cpp \
-  tests/harness/bot_process.cpp tests/harness/opponent.cpp tests/harness/tracks.cpp
+./tests/harness/build.sh
 
 # Build the two bot versions you want to compare, then run the harness against them
 g++ -std=c++17 -O2 -o /tmp/bot_a main.cpp        # e.g. current main.cpp

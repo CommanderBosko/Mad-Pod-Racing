@@ -44,9 +44,7 @@ See `CLAUDE.md` for the full physics specification (rotation, thrust, friction, 
 
 ```bash
 # Build the harness once
-g++ -std=c++17 -O2 -Wall -Wextra -o tests/harness/mpr_harness \
-  tests/harness/harness_main.cpp tests/harness/race.cpp tests/harness/physics.cpp \
-  tests/harness/bot_process.cpp tests/harness/opponent.cpp tests/harness/tracks.cpp
+./tests/harness/build.sh
 
 # Build the two versions you want to compare, then run the harness
 g++ -std=c++17 -O2 -o /tmp/bot_a main.cpp

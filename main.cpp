@@ -7,6 +7,23 @@
 
 using namespace std;
 
+// --- Tunable heuristic constants (edited by the /tune-bot loop; see
+// .claude/skills/tune-bot). SHIELD's 3-turn cooldown is NOT here since it's
+// a fixed game rule (engine lockout duration), not a heuristic choice.
+static const int    THRUST_ZERO_ANGLE_DEG         = 90;     // angle beyond which thrust cuts to 0
+static const double THRUST_ANGLE_FACTOR           = 0.7;    // thrust falloff per degree of angle
+static const double BRAKING_ZONE_MIN              = 1000.0; // min braking-zone radius
+static const double BRAKING_ZONE_SPEED_MULT       = 3.0;    // braking-zone radius per unit speed
+static const int    BRAKING_THRUST_CAP            = 40;     // max thrust once inside braking zone
+static const int    BOOST_ANGLE_MAX_DEG           = 10;     // max angle to allow a boost
+static const int    BOOST_DIST_MIN                = 4000;   // min distance-to-checkpoint to allow a boost
+static const double SHIELD_DIST_TRIGGER           = 900.0;  // opponent proximity that arms the shield check
+static const double SHIELD_PREDICTED_DIST_TRIGGER = 800.0;  // predicted 1-turn-ahead distance that fires shield
+static const double TARGET_BLEND_MAX_WEIGHT       = 0.2;    // max lookahead blend toward next-next checkpoint
+static const double TARGET_BLEND_DIST_NORM        = 3000.0; // distance at which lookahead blend saturates
+static const double DRIFT_CORRECTION_FACTOR       = 1.0;    // multiplier on velocity subtracted from aim point
+// --- end tunable constants ---
+
 // Store checkpoints once discovered. Discovery stops the moment the target
 // cycles back to the very first checkpoint seen -- after that, checkpointIndex
 // is re-derived every turn by matching the game's current target against this
@@ -21,18 +38,18 @@ static int lastCheckpointY = -1;
 // Smooth thrust scaling
 static int calculateThrust(int angle, int distance, double speed) {
     int thrust;
-    if (abs(angle) > 90) {
+    if (abs(angle) > THRUST_ZERO_ANGLE_DEG) {
         thrust = 0; // too sharp, slow down
     } else {
-        thrust = (int)(100 - (abs(angle) * 0.7));
+        thrust = (int)(100 - (abs(angle) * THRUST_ANGLE_FACTOR));
     }
 
     // Brake near checkpoint -- scale the braking zone with current speed so a
     // fast-moving pod starts slowing earlier instead of overshooting (a fixed
     // 1000-unit zone is fine standing still but too late at high speed).
-    double brakingZone = max(1000.0, speed * 3.0);
+    double brakingZone = max(BRAKING_ZONE_MIN, speed * BRAKING_ZONE_SPEED_MULT);
     if (distance < brakingZone) {
-        thrust = min(thrust, 40);
+        thrust = min(thrust, BRAKING_THRUST_CAP);
     }
 
     return max(thrust, 0);
@@ -146,7 +163,7 @@ int main() {
         // somewhere after its longest leg, and that veto alone was enough to
         // disqualify boosting here entirely. Alignment right now is still
         // required (small angle, real distance left to cover).
-        if (boostCount > 0 && onLongestLeg && abs(nextAngle) <= 10 && nextDist > 4000) {
+        if (boostCount > 0 && onLongestLeg && abs(nextAngle) <= BOOST_ANGLE_MAX_DEG && nextDist > BOOST_DIST_MIN) {
             thrustOutput = "BOOST";
             boostCount--;
         }
@@ -164,7 +181,7 @@ int main() {
             double predictedDy = (opponentY + oppVy) - (y + myVy);
             double predictedDist = sqrt(predictedDx * predictedDx + predictedDy * predictedDy);
 
-            if (opponentDistance < 900 && predictedDist < 800) {
+            if (opponentDistance < SHIELD_DIST_TRIGGER && predictedDist < SHIELD_PREDICTED_DIST_TRIGGER) {
                 thrustOutput = "SHIELD";
                 shieldCooldownRemaining = 3;
             }
@@ -183,7 +200,7 @@ int main() {
         // then orbits just past it forever without ever registering a hit.
         // Full lookahead is only safe (and useful, for smoother cornering)
         // while there's still real distance to close.
-        double weight = 0.2 * min(1.0, nextDist / 3000.0);
+        double weight = TARGET_BLEND_MAX_WEIGHT * min(1.0, nextDist / TARGET_BLEND_DIST_NORM);
         double targetX = (1 - weight) * nextCheckpoint[0] + weight * nextNextCheckpoint[0];
         double targetY = (1 - weight) * nextCheckpoint[1] + weight * nextNextCheckpoint[1];
 
@@ -192,8 +209,8 @@ int main() {
         // instead of just chasing it nose-first, which cuts down on the
         // wide, momentum-driven arcs a naive "aim straight at target" bot
         // carves through corners.
-        targetX -= myVx;
-        targetY -= myVy;
+        targetX -= DRIFT_CORRECTION_FACTOR * myVx;
+        targetY -= DRIFT_CORRECTION_FACTOR * myVy;
 
         // Debug info
         cerr << "Boosts left: " << boostCount << endl;

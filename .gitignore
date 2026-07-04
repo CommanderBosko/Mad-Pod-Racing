@@ -1,0 +1,19 @@
+# Build artifacts
+pod
+tests/harness/mpr_harness
+*.o
+*.out
+
+# Nix
+.direnv/
+result
+result-*
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store

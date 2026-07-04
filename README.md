@@ -77,6 +77,7 @@ See `CLAUDE.md` for the full strategy and physics notes.
 
 ## Recent Changes
 
+- **2026-07-04**: Added a `validate-bot-change` Claude Code skill to automate the build/compare/report loop against the harness, and extracted `tests/harness/build.sh` as the single source of truth for the harness build command (previously duplicated in 3 places).
 - **2026-07-04**: Built the A/B test harness and used it to find and fix real bugs: a SHIELD physics fidelity bug in the harness itself, a SHIELD-stall heuristic and cross-lap checkpoint desync in `main.cpp`, and — found only through harness validation — a deeper bug where the checkpoint-targeting blend could aim outside a checkpoint's capture radius entirely. Added speed-aware braking, longest-leg boost targeting, and drift-compensated steering. Corrected CLAUDE.md's league/protocol description after confirming the real protocol via the CodinGame IDE. Total turns-to-finish across the 4 test tracks dropped ~23% with zero regressions.
 - Initial commit: Wood-league bot, A/B test harness, and dev tooling.
 

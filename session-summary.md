@@ -1,3 +1,27 @@
+## Session: 2026-07-04 — improve-system sweep: new validate-bot-change skill
+
+**Focus**: Run the `/improve-system` maintenance sweep (skill-upgrade, skill-suggestion, claude-rules, skill-audit, fewer-permission-prompts) to harden the tooling built earlier today.
+
+### What changed (and why)
+- Built a new project-local skill, `validate-bot-change` (`.claude/skills/validate-bot-change/`), automating the build-baseline/build-candidate/run-harness/report-verdict loop that had been done by hand repeatedly earlier in the day.
+- `skill-audit` found the harness's 6-file build command duplicated verbatim in 3 places (CLAUDE.md, README.md, the new skill) — a real drift risk if `tests/harness/` ever gains a new source file. Extracted `tests/harness/build.sh` as the single source of truth; all three now call it instead of inlining the file list.
+- Both new scripts (`build.sh`, `scripts/validate.sh`) were tested end-to-end, not just syntax-checked: the no-uncommitted-changes early-exit path, and a full build+run+revert pass using a throwaway comment-only edit to `main.cpp`.
+- `skill-upgrade` found one real gap from earlier today: `session-closer`'s instructions assume a `secret-scan` skill is always available, but it wasn't present in this project's skill list, so a manual grep-based check was substituted. Added a `## Gotchas` entry to the repo-managed `session-closer` skill (in the NixOS dotfiles repo) documenting the fallback.
+
+### Decisions
+- `claude-rules` and `fewer-permission-prompts` both came back clean — no changes needed. Worth noting explicitly rather than silently skipping, since a clean pass is still a result.
+- Kept `validate-bot-change` project-local rather than promoting it to a global skill — its build commands and file paths are specific to this repo's layout.
+
+### Issues / surprises
+- The `nixos-dry-run` verification step (normally run after editing a repo-managed global skill) wasn't available in this session's skill list, since it lives in the NixOS repo's own tooling, not this project's — flagged rather than skipped silently. The `session-closer` gotcha edit still needs a manual dry-run + rebuild + new session in that repo before it's live.
+
+### Next session
+- (unchanged from the harness/bug-fix session below — see that entry)
+
+**Commits**: `60ea550..181e020` (1 commit)
+
+---
+
 ## Session: 2026-07-04 — Test harness build, protocol correction, and bug-fix pass
 
 **Focus**: Build a C++ A/B test harness to measure whether bot changes are real improvements, then use it to find and fix real bugs in both the harness and the bot.

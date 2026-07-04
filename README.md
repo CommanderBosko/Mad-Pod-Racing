@@ -1,6 +1,10 @@
 # Mad Pod Racing
 
-A C++ bot for [CodinGame](https://www.codingame.com)'s **Mad Pod Racing** challenge (originally "Coders Strike Back"): a turn-based pod-racing game where the goal is to climb the leagues — Wood → Bronze → Silver → Gold → Legend — by reading game state from stdin and writing thrust/steering commands to stdout each turn.
+A C++ bot for [CodinGame](https://www.codingame.com)'s **Mad Pod Racing** puzzle: a turn-based pod-racing game where the goal is to climb the leagues — Wood → Bronze → Silver → Gold → Legend — by reading game state from stdin and writing thrust/steering commands to stdout each turn.
+
+## Current Status
+
+Currently competing in **Silver league**. Confirmed via the CodinGame IDE that this puzzle uses a **single-pod protocol across every league** (no init block, no second pod) — new mechanics like SHIELD unlock progressively without changing that shape. This is a simpler, single-pod ladder, distinct from the 2-pods-per-side "Coders Strike Back" contest.
 
 ## Overview
 
@@ -30,9 +34,7 @@ There's no test framework on CodinGame itself — local verification means repla
 
 Output, one line per controlled pod, every turn: `targetX targetY thrust`, where `thrust` is `0`-`100`, or `BOOST` (one-shot per race), or `SHIELD` (skips thrust, triples collision mass, then cools down).
 
-Input format differs by league:
-- **Wood 2** (1 pod, no init block): each turn reads `x y nextCheckpointX nextCheckpointY nextCheckpointDist nextCheckpointAngle`, then the opponent's `x y`.
-- **Bronze and above** (2 pods per side, full track known up front): reads `laps`, `checkpointCount`, then each checkpoint's coordinates once; every turn after reads 2 of your pods and 2 opponent pods as `x y vx vy angle nextCheckpointId`.
+**Confirmed unchanged across every league so far (through Silver):** each turn reads your pod's `x y nextCheckpointX nextCheckpointY nextCheckpointDist nextCheckpointAngle`, then the opponent's `x y` (position only — no velocity/angle for the opponent). No init block; the track is discovered by watching the checkpoint coordinates change turn to turn, and it repeats every lap. Gold/Legend's protocol is unconfirmed — verify against the IDE before assuming it stays this way.
 
 See `CLAUDE.md` for the full physics specification (rotation, thrust, friction, collision constants) that any local simulator needs to replicate exactly.
 
@@ -70,10 +72,15 @@ tests/
 ## Strategy progression
 
 - **Wood/Bronze**: aim at the next checkpoint, cut thrust on wide angles, boost on long straights.
-- **Silver/Gold**: anticipate the checkpoint after next for racing-line cornering, manage drift.
-- **Gold/Legend**: split roles between a racing pod and a blocker/interceptor pod, with forward-simulated search over thrust/angle sequences.
+- **Silver (current)**: anticipate the checkpoint after next for racing-line cornering (tapered to avoid missing the checkpoint's capture radius), speed-aware braking, velocity-drift-compensated steering, boost reserved for the single longest leg of the track, and predictive (not just proximity-based) SHIELD.
+- **Gold/Legend**: unconfirmed whether these introduce a second controllable pod — verify against the IDE when reaching that point rather than assuming.
 
 See `CLAUDE.md` for the full strategy and physics notes.
+
+## Recent Changes
+
+- **2026-07-04**: Built the A/B test harness and used it to find and fix real bugs: a SHIELD physics fidelity bug in the harness itself, a SHIELD-stall heuristic and cross-lap checkpoint desync in `main.cpp`, and — found only through harness validation — a deeper bug where the checkpoint-targeting blend could aim outside a checkpoint's capture radius entirely. Added speed-aware braking, longest-leg boost targeting, and drift-compensated steering. Corrected CLAUDE.md's league/protocol description after confirming the real protocol via the CodinGame IDE. Total turns-to-finish across the 4 test tracks dropped ~23% with zero regressions.
+- Initial commit: Wood-league bot, A/B test harness, and dev tooling.
 
 ## License
 

@@ -79,11 +79,14 @@ Known limitation: tracks are best-effort approximations of real CodinGame layout
 - `thrust` is an integer `0`–`100`, or the keyword `BOOST` (one use per race), or `SHIELD` (skips thrust this turn, triples mass for collisions, then cools down ~3 turns).
 - The pod does not teleport to the target; it rotates toward `(targetX, targetY)` (max 18°/turn) and accelerates along its facing.
 
-**Input differs by league — check which one you're in before parsing:**
-- **Wood 2 (1 pod, no init block):** each turn reads your pod's `x y nextCheckpointX nextCheckpointY nextCheckpointDist nextCheckpointAngle`, then the opponent's `x y`. Output a single command.
-- **Bronze and above (2 pods each side, with an init block):** first read `laps`, then `checkpointCount`, then that many `checkpointX checkpointY` lines (the full track is known up front). Each turn then reads 2 of your pods followed by 2 opponent pods, each as `x y vx vy angle nextCheckpointId`. Output **two** commands (one per your pod).
+**Confirmed via the CodinGame IDE itself (screenshot, Silver league, 2026-07-04): this specific "Mad Pod Racing" puzzle uses ONE protocol across every league.** Earlier drafts of this doc assumed a Bronze+ jump to 2 pods/init-block/velocity-angle state — that assumption came from "Coders Strike Back" (the full 2v2 contest) and is **wrong for this puzzle**. Every league so far (confirmed through Silver) reads:
 
-The jump from 1 pod to 2 pods + known checkpoints + velocity/angle state is the biggest structural change — write the parser to the league you're targeting and gate league-specific logic clearly.
+- Your pod: `x y nextCheckpointX nextCheckpointY nextCheckpointDist nextCheckpointAngle`
+- Opponent: `x y` (position only — no velocity/angle given for the opponent, ever)
+- No init block. No checkpoint count. The track is discovered by watching `nextCheckpointX/Y` change turn to turn, and it repeats every lap.
+- Output: a single command line (one pod only — this puzzle has no second pod to control).
+
+New mechanics unlock progressively at higher leagues without changing this I/O shape — e.g. SHIELD was confirmed newly available entering Silver (per the league's "Summary of new rules" banner). **Unconfirmed:** whether Gold/Legend introduce a real protocol change (2 pods, etc.) — verify directly against the IDE (or a screenshot of it) before assuming either way when that point is reached, rather than trusting prior training-data assumptions about "Coders Strike Back."
 
 ## Game physics (the simulation spec)
 
@@ -98,14 +101,14 @@ Constants:
 - Map: `16000 x 9000` units.
 - Checkpoint radius: `600` (you "hit" it when within 600). Pod radius: `400`.
 - Max thrust per turn: `100`. **BOOST**: one-shot ~`650` acceleration; spend it on the longest straightaway.
-- **SHIELD**: mass ×3 for collision response that turn, no thrust applied, brief cooldown — use to win/deny collisions, not casually.
+- **SHIELD**: mass ×3 for collision response that turn, no thrust applied. Per the official rules, **engines stay inactive for the next 3 turns** after use (not just a re-activation cooldown — thrust is fully unavailable during that window) — use to win/deny collisions, not casually.
 - A pod is **eliminated** if it doesn't reach its next checkpoint within ~100 turns.
 - Per-turn compute budget is tight (first turn longer, ~1s; later turns are short, on the order of tens of ms) — keep any search/simulation within budget.
 
 ## Strategy progression (where the difficulty lives)
 
 - **Wood/Bronze:** aim straight at the next checkpoint; cut thrust when the angle to target is wide; trigger BOOST on long straights. This alone clears the early leagues.
-- **Silver/Gold:** anticipate the *checkpoint after next* and steer for racing-line corners; manage velocity so you don't overshoot; counter-steer against drift.
-- **Gold/Legend:** designate one pod as **runner** (race optimally) and one as **blocker/interceptor** (predict opponent positions and body-check them); use SHIELD tactically. Top bots run a **forward simulation / genetic-algorithm search** over future thrust+angle sequences each turn — this is why C++ and a faithful physics simulator matter.
+- **Silver (current league):** anticipate the *checkpoint after next* and steer for racing-line corners; manage velocity so you don't overshoot; counter-steer against drift; use the newly-unlocked SHIELD tactically (win/deny collisions) rather than as a panic button.
+- **Gold/Legend:** unconfirmed whether these introduce a second controllable pod (a runner/blocker split would require it) — this puzzle has stayed single-pod-per-side through Silver, contrary to earlier assumptions borrowed from "Coders Strike Back." Verify against the IDE when reaching that point rather than assuming. Regardless of pod count, top bots run a **forward simulation / genetic-algorithm search** over future thrust+angle sequences each turn — this is why C++ and a faithful physics simulator matter.
 
 When adding meaningful new mechanics or structure (a simulator, a search, a blocker role), update the relevant section above so it stays the source of truth.

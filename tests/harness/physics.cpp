@@ -41,12 +41,20 @@ void applyThrust(Pod& pod, TurnCommand& cmd, int turnNumber) {
         shieldActivatedThisTurn = true;
     }
 
+    // Per the official rule, engines stay inactive for the 3 turns following a
+    // SHIELD activation -- not just a re-activation cooldown. A pod already in
+    // that window gets no thrust at all this turn, regardless of what it asks for.
+    bool enginesLockedOut = pod.shieldCooldownRemaining > 0;
+
     if (pod.shieldCooldownRemaining > 0) {
         pod.shieldCooldownRemaining--;
     }
     if (shieldActivatedThisTurn) {
         pod.shieldCooldownRemaining = SHIELD_COOLDOWN_TURNS;
         return; // no thrust applied on the turn shield is raised
+    }
+    if (enginesLockedOut) {
+        return; // engines inactive: no thrust, no boost, while cooling down
     }
 
     double thrustMagnitude;

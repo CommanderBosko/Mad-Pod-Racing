@@ -7,14 +7,19 @@
 
 using namespace std;
 
-// Store checkpoints once discovered
+// Store checkpoints once discovered. Discovery stops the moment the target
+// cycles back to the very first checkpoint seen -- after that, checkpointIndex
+// is re-derived every turn by matching the game's current target against this
+// list, so lap 2+ never desyncs (the list itself never changes size again,
+// unlike blindly appending on every "target changed" turn, which would push a
+// duplicate entry -- and shift what index means -- every single lap).
 static vector<array<int, 2>> checkpoints;
+static bool discoveryComplete = false;
 static int lastCheckpointX = -1;
 static int lastCheckpointY = -1;
-static int checkpointIndex = 0;
 
 // Smooth thrust scaling
-static int calculateThrust(int angle, int distance) {
+static int calculateThrust(int angle, int distance, double speed) {
     int thrust;
     if (abs(angle) > 90) {
         thrust = 0; // too sharp, slow down
@@ -22,43 +27,30 @@ static int calculateThrust(int angle, int distance) {
         thrust = (int)(100 - (abs(angle) * 0.7));
     }
 
-    // Brake near checkpoint
-    if (distance < 1000) {
+    // Brake near checkpoint -- scale the braking zone with current speed so a
+    // fast-moving pod starts slowing earlier instead of overshooting (a fixed
+    // 1000-unit zone is fine standing still but too late at high speed).
+    double brakingZone = max(1000.0, speed * 3.0);
+    if (distance < brakingZone) {
         thrust = min(thrust, 40);
     }
 
     return max(thrust, 0);
 }
 
-// Boost conditions: straight line with both checkpoints aligned
-static bool shouldBoost(int x, int y, const array<int, 2>& nextCP,
-                        const array<int, 2>& nextNextCP, int angle, int distance) {
-    if (abs(angle) > 5) return false;     // must be mostly straight
-    if (distance < 4000) return false;    // not enough runway
-
-    // Vector to next checkpoint
-    double dx1 = nextCP[0] - x;
-    double dy1 = nextCP[1] - y;
-
-    // Vector from next checkpoint to next-next checkpoint
-    double dx2 = nextNextCP[0] - nextCP[0];
-    double dy2 = nextNextCP[1] - nextCP[1];
-
-    // Compute angle between vectors
-    double dot = dx1 * dx2 + dy1 * dy2;
-    double mag1 = sqrt(dx1 * dx1 + dy1 * dy1);
-    double mag2 = sqrt(dx2 * dx2 + dy2 * dy2);
-    if (mag1 == 0 || mag2 == 0) return false;
-
-    double cosTheta = dot / (mag1 * mag2);
-    double angleBetween = acos(cosTheta) * 180 / M_PI;
-
-    // Only boost if the turn after is small
-    return angleBetween < 10;
-}
-
 int main() {
     int boostCount = 1;
+
+    // Self-tracked SHIELD cooldown: the protocol never tells us whether our
+    // last SHIELD is still locking out our engines, so we have to count it
+    // ourselves (mirrors the engine's real 3-turn lockout).
+    int shieldCooldownRemaining = 0;
+
+    // Previous-turn positions, used to estimate our own and the opponent's
+    // velocity (the protocol gives neither directly) so SHIELD can react to an
+    // actually-imminent collision instead of mere proximity.
+    bool havePrevPositions = false;
+    int lastX = 0, lastY = 0, lastOppX = 0, lastOppY = 0;
 
     // game loop
     while (true) {
@@ -68,22 +60,52 @@ int main() {
         cin >> x >> y >> nextCheckpointX >> nextCheckpointY >> nextDist >> nextAngle;
         cin >> opponentX >> opponentY;
 
-        // Remember checkpoints as they appear
+        // Remember checkpoints as they appear, stopping once we've cycled
+        // back to the first one ever seen (a completed discovery lap).
         if (nextCheckpointX != lastCheckpointX || nextCheckpointY != lastCheckpointY) {
-            checkpoints.push_back({nextCheckpointX, nextCheckpointY});
+            if (!discoveryComplete) {
+                bool isRepeatOfFirst = !checkpoints.empty() &&
+                    checkpoints[0][0] == nextCheckpointX && checkpoints[0][1] == nextCheckpointY;
+                if (isRepeatOfFirst && checkpoints.size() > 1) {
+                    discoveryComplete = true;
+                } else {
+                    checkpoints.push_back({nextCheckpointX, nextCheckpointY});
+                }
+            }
             lastCheckpointX = nextCheckpointX;
             lastCheckpointY = nextCheckpointY;
-            checkpointIndex = (checkpointIndex + 1) % checkpoints.size();
         }
 
-        // Figure out "next-next checkpoint" if available
+        // Re-derive which known checkpoint we're currently targeting by
+        // coordinate match every turn -- robust across any number of laps,
+        // unlike incrementing a counter that can drift out of sync.
+        int checkpointIndex = 0;
+        for (size_t i = 0; i < checkpoints.size(); i++) {
+            if (checkpoints[i][0] == nextCheckpointX && checkpoints[i][1] == nextCheckpointY) {
+                checkpointIndex = (int)i;
+                break;
+            }
+        }
+
+        // Figure out "next-next checkpoint" if available. Only trust the
+        // cyclic lookahead once discovery has completed -- during the first
+        // lap the list is still partial, so wrapping via modulo would point
+        // backward at an already-discovered (already-passed) checkpoint
+        // instead of the genuinely upcoming one.
         array<int, 2> nextCheckpoint = {nextCheckpointX, nextCheckpointY};
         array<int, 2> nextNextCheckpoint = nextCheckpoint; // fallback
 
-        if (checkpoints.size() > 1) {
+        if (discoveryComplete && checkpoints.size() > 1) {
             int nextIndex = (checkpointIndex + 1) % (int)checkpoints.size();
             nextNextCheckpoint = checkpoints[nextIndex];
         }
+
+        // Own velocity estimate (the protocol gives neither pod's velocity
+        // directly), reused for speed-aware braking, SHIELD collision
+        // prediction, and drift-compensated steering below.
+        double myVx = havePrevPositions ? (x - lastX) : 0.0;
+        double myVy = havePrevPositions ? (y - lastY) : 0.0;
+        double mySpeed = sqrt(myVx * myVx + myVy * myVy);
 
         // Compute opponent distance
         double dx = opponentX - x;
@@ -91,24 +113,87 @@ int main() {
         double opponentDistance = sqrt(dx * dx + dy * dy);
 
         // Thrust calculation
-        int thrust = calculateThrust(nextAngle, nextDist);
+        int thrust = calculateThrust(nextAngle, nextDist, mySpeed);
         string thrustOutput = to_string(thrust);
 
-        // Boost logic (safe version)
-        if (boostCount > 0 && shouldBoost(x, y, nextCheckpoint, nextNextCheckpoint, nextAngle, nextDist)) {
+        // Boost logic: only on the single longest leg of the whole track
+        // (known once discovery completes), not just the first straight that
+        // happens to qualify -- there's only one boost per race, so spend it
+        // where it buys the most, and a 3-lap race guarantees we pass the
+        // longest leg again even if we skip it during the discovery lap.
+        bool onLongestLeg = false;
+        if (discoveryComplete && checkpoints.size() > 1) {
+            int n = (int)checkpoints.size();
+            double bestLen = -1;
+            int bestLeg = 0;
+            for (int k = 0; k < n; k++) {
+                double lx = checkpoints[(k + 1) % n][0] - checkpoints[k][0];
+                double ly = checkpoints[(k + 1) % n][1] - checkpoints[k][1];
+                double len = sqrt(lx * lx + ly * ly);
+                if (len > bestLen) {
+                    bestLen = len;
+                    bestLeg = k;
+                }
+            }
+            int currentLeg = (checkpointIndex - 1 + n) % n;
+            onLongestLeg = (currentLeg == bestLeg);
+        }
+
+        // onLongestLeg already identifies the single best straight on the
+        // whole course, so we don't also need shouldBoost's "small turn
+        // after" veto -- that check exists to avoid boosting into a sharp
+        // corner on an arbitrary straight, but every real track bends
+        // somewhere after its longest leg, and that veto alone was enough to
+        // disqualify boosting here entirely. Alignment right now is still
+        // required (small angle, real distance left to cover).
+        if (boostCount > 0 && onLongestLeg && abs(nextAngle) <= 10 && nextDist > 4000) {
             thrustOutput = "BOOST";
             boostCount--;
         }
 
-        // Shield logic
-        if (opponentDistance < 800) {
-            thrustOutput = "SHIELD";
+        // Shield logic: react to an actually-imminent collision, not mere
+        // proximity. Estimating both pods' velocity by finite difference and
+        // extrapolating one turn ahead avoids the old trap where staying near
+        // a slow-moving opponent (not on a collision course) triggered SHIELD
+        // every turn forever, permanently locking out our own engines.
+        if (shieldCooldownRemaining > 0) {
+            shieldCooldownRemaining--;
+        } else if (havePrevPositions) {
+            double oppVx = opponentX - lastOppX, oppVy = opponentY - lastOppY;
+            double predictedDx = (opponentX + oppVx) - (x + myVx);
+            double predictedDy = (opponentY + oppVy) - (y + myVy);
+            double predictedDist = sqrt(predictedDx * predictedDx + predictedDy * predictedDy);
+
+            if (opponentDistance < 900 && predictedDist < 800) {
+                thrustOutput = "SHIELD";
+                shieldCooldownRemaining = 3;
+            }
         }
 
-        // Targeting: aim between next and next-next
-        double weight = 0.2; // bias toward next-next checkpoint
+        lastX = x;
+        lastY = y;
+        lastOppX = opponentX;
+        lastOppY = opponentY;
+        havePrevPositions = true;
+
+        // Targeting: aim between next and next-next, but taper the blend to
+        // zero as we close in. A fixed blend keeps aiming at a point between
+        // the two checkpoints even at close range, which can sit outside the
+        // current checkpoint's 600-unit capture radius entirely -- the pod
+        // then orbits just past it forever without ever registering a hit.
+        // Full lookahead is only safe (and useful, for smoother cornering)
+        // while there's still real distance to close.
+        double weight = 0.2 * min(1.0, nextDist / 3000.0);
         double targetX = (1 - weight) * nextCheckpoint[0] + weight * nextNextCheckpoint[0];
         double targetY = (1 - weight) * nextCheckpoint[1] + weight * nextNextCheckpoint[1];
+
+        // Counter-steer against drift: subtract our own estimated velocity
+        // from the aim point so the pod corrects toward the checkpoint
+        // instead of just chasing it nose-first, which cuts down on the
+        // wide, momentum-driven arcs a naive "aim straight at target" bot
+        // carves through corners.
+        targetX -= myVx;
+        targetY -= myVy;
 
         // Debug info
         cerr << "Boosts left: " << boostCount << endl;

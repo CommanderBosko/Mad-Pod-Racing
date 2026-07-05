@@ -10,7 +10,7 @@ using namespace std;
 // --- Tunable heuristic constants (edited by the /tune-bot loop; see
 // .claude/skills/tune-bot). SHIELD's 3-turn cooldown is NOT here since it's
 // a fixed game rule (engine lockout duration), not a heuristic choice.
-static const int    THRUST_ZERO_ANGLE_DEG         = 90;     // angle beyond which thrust cuts to 0
+static const int    THRUST_ZERO_ANGLE_DEG         = 92;     // angle beyond which thrust cuts to 0
 static const double THRUST_ANGLE_FACTOR           = 0.7;    // thrust falloff per degree of angle
 static const double BRAKING_ZONE_MIN              = 1000.0; // min braking-zone radius
 static const double BRAKING_ZONE_SPEED_MULT       = 3.0;    // braking-zone radius per unit speed

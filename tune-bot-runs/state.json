@@ -1,0 +1,2011 @@
+{
+  "index": 1,
+  "cycle_no_improve_streak": 58,
+  "run_count": 193,
+  "per_constant": {
+    "THRUST_ZERO_ANGLE_DEG": {
+      "step": 1,
+      "next_dir": "-",
+      "consec_fail": 0,
+      "initial_value": 90.0
+    },
+    "THRUST_ANGLE_FACTOR": {
+      "step": 0.006999999999999999,
+      "next_dir": "+",
+      "consec_fail": 0,
+      "initial_value": 0.7
+    },
+    "BRAKING_ZONE_MIN": {
+      "step": 25.0,
+      "next_dir": "+",
+      "consec_fail": 1,
+      "initial_value": 1000.0
+    },
+    "BRAKING_ZONE_SPEED_MULT": {
+      "step": 0.03,
+      "next_dir": "+",
+      "consec_fail": 0,
+      "initial_value": 3.0
+    },
+    "BRAKING_THRUST_CAP": {
+      "step": 1,
+      "next_dir": "+",
+      "consec_fail": 0,
+      "initial_value": 40.0
+    },
+    "BOOST_ANGLE_MAX_DEG": {
+      "step": 1,
+      "next_dir": "+",
+      "consec_fail": 0,
+      "initial_value": 10.0
+    },
+    "BOOST_DIST_MIN": {
+      "step": 40.0,
+      "next_dir": "+",
+      "consec_fail": 0,
+      "initial_value": 4000.0
+    },
+    "SHIELD_DIST_TRIGGER": {
+      "step": 9.0,
+      "next_dir": "-",
+      "consec_fail": 0,
+      "initial_value": 900.0
+    },
+    "SHIELD_PREDICTED_DIST_TRIGGER": {
+      "step": 8.0,
+      "next_dir": "+",
+      "consec_fail": 0,
+      "initial_value": 800.0
+    },
+    "TARGET_BLEND_MAX_WEIGHT": {
+      "step": 0.002,
+      "next_dir": "-",
+      "consec_fail": 1,
+      "initial_value": 0.2
+    },
+    "TARGET_BLEND_DIST_NORM": {
+      "step": 30.0,
+      "next_dir": "-",
+      "consec_fail": 1,
+      "initial_value": 3000.0
+    },
+    "DRIFT_CORRECTION_FACTOR": {
+      "step": 0.01,
+      "next_dir": "+",
+      "consec_fail": 0,
+      "initial_value": 1.0
+    }
+  },
+  "history": [
+    {
+      "run": 1,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 90.0,
+      "tried_value": 99.0,
+      "direction": "+",
+      "cost_best": 879.0,
+      "cost_candidate": 924.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 2,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.7699999999999999,
+      "direction": "+",
+      "cost_best": 879.0,
+      "cost_candidate": 1032.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 3,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1000.0,
+      "tried_value": 1100.0,
+      "direction": "+",
+      "cost_best": 879.0,
+      "cost_candidate": 888.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 4,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 3.3,
+      "direction": "+",
+      "cost_best": 879.0,
+      "cost_candidate": 1021.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 5,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 44.0,
+      "direction": "+",
+      "cost_best": 879.0,
+      "cost_candidate": 945.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 6,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 11.0,
+      "direction": "+",
+      "cost_best": 879.0,
+      "cost_candidate": 879.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 7,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 4400.0,
+      "direction": "+",
+      "cost_best": 879.0,
+      "cost_candidate": 879.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 8,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 900.0,
+      "tried_value": 990.0,
+      "direction": "+",
+      "cost_best": 879.0,
+      "cost_candidate": 930.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 9,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 880.0,
+      "direction": "+",
+      "cost_best": 879.0,
+      "cost_candidate": 962.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 10,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.2,
+      "tried_value": 0.22000000000000003,
+      "direction": "+",
+      "cost_best": 879.0,
+      "cost_candidate": 837.0,
+      "decision": "accepted"
+    },
+    {
+      "run": 11,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3000.0,
+      "tried_value": 3300.0,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 859.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 12,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 1.1,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 994.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 13,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 90.0,
+      "tried_value": 81.0,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 929.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 14,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.63,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 1028.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 15,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1000.0,
+      "tried_value": 900.0,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 975.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 16,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 2.7,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 945.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 17,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 36.0,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 1835.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 18,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 9.0,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 870.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 19,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 3600.0,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 837.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 20,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 900.0,
+      "tried_value": 810.0,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 1770.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 21,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 720.0,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 923.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 22,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.24,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 1825.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 23,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3000.0,
+      "tried_value": 2700.0,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 986.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 24,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 0.9,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 932.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 25,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 90.0,
+      "tried_value": 94.5,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 943.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 26,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.735,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 1146.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 27,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1000.0,
+      "tried_value": 1050.0,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 846.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 28,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 3.15,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 1056.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 29,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 42.0,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 1927.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 30,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 11.0,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 837.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 31,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 4200.0,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 837.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 32,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 900.0,
+      "tried_value": 945.0,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 862.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 33,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 840.0,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 1105.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 34,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.2,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 879.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 35,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3000.0,
+      "tried_value": 3150.0,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 886.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 36,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 1.05,
+      "direction": "+",
+      "cost_best": 837.0,
+      "cost_candidate": 1072.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 37,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 90.0,
+      "tried_value": 85.5,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 892.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 38,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.6649999999999999,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 1119.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 39,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1000.0,
+      "tried_value": 950.0,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 1002.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 40,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 2.85,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 957.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 41,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 38.0,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 957.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 42,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 9.0,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 870.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 43,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 3800.0,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 837.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 44,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 900.0,
+      "tried_value": 855.0,
+      "direction": "-",
+      "cost_best": 837.0,
+      "cost_candidate": 830.0,
+      "decision": "accepted"
+    },
+    {
+      "run": 45,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 760.0,
+      "direction": "-",
+      "cost_best": 830.0,
+      "cost_candidate": 924.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 46,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.23,
+      "direction": "+",
+      "cost_best": 830.0,
+      "cost_candidate": 985.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 47,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3000.0,
+      "tried_value": 2850.0,
+      "direction": "-",
+      "cost_best": 830.0,
+      "cost_candidate": 1017.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 48,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 0.95,
+      "direction": "-",
+      "cost_best": 830.0,
+      "cost_candidate": 1099.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 49,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 90.0,
+      "tried_value": 92.25,
+      "direction": "+",
+      "cost_best": 830.0,
+      "cost_candidate": 829.0,
+      "decision": "accepted"
+    },
+    {
+      "run": 50,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.7174999999999999,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 954.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 51,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1000.0,
+      "tried_value": 1025.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 832.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 52,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 3.075,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 980.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 53,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 41.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 1056.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 54,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 11.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 829.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 55,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 4100.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 829.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 56,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 855.0,
+      "tried_value": 810.0,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 1686.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 57,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 820.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 881.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 58,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.21,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 871.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 59,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3000.0,
+      "tried_value": 3075.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 955.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 60,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 1.025,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 1030.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 61,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 92.0,
+      "tried_value": 94.25,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 857.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 62,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.6825,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 1074.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 63,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1000.0,
+      "tried_value": 975.0,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 833.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 64,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 2.925,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 917.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 65,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 39.0,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 1118.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 66,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 9.0,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 829.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 67,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 3900.0,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 829.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 68,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 855.0,
+      "tried_value": 900.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 967.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 69,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 780.0,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 915.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 70,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.225,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 847.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 71,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3000.0,
+      "tried_value": 2925.0,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 1020.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 72,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 0.975,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 942.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 73,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 92.0,
+      "tried_value": 89.75,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 830.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 74,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.70875,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 1059.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 75,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1000.0,
+      "tried_value": 1012.5,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 830.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 76,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 3.0375,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 957.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 77,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 41.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 1056.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 78,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 11.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 829.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 79,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 4050.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 829.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 80,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 855.0,
+      "tried_value": 832.5,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 931.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 81,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 810.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 836.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 82,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.215,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 966.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 83,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3000.0,
+      "tried_value": 3037.5,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 914.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 84,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 1.0125,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 1067.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 85,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 92.0,
+      "tried_value": 93.125,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 858.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 86,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.6912499999999999,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 983.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 87,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1000.0,
+      "tried_value": 987.5,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 837.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 88,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 2.9625,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 830.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 89,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 39.0,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 1118.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 90,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 9.0,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 829.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 91,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 3950.0,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 829.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 92,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 855.0,
+      "tried_value": 877.5,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 1033.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 93,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 790.0,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 915.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 94,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.2225,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 869.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 95,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3000.0,
+      "tried_value": 2962.5,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 898.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 96,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 0.9875,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 1081.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 97,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 92.0,
+      "tried_value": 90.875,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 830.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 98,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.707,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 954.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 99,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1000.0,
+      "tried_value": 1010.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 832.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 100,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 3.03,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 957.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 101,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 41.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 1056.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 102,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 11.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 829.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 103,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 4040.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 829.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 104,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 855.0,
+      "tried_value": 843.75,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 918.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 105,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 808.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 829.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 106,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.2175,
+      "direction": "-",
+      "cost_best": 829.0,
+      "cost_candidate": 903.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 107,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3000.0,
+      "tried_value": 3030.0,
+      "direction": "+",
+      "cost_best": 829.0,
+      "cost_candidate": 816.0,
+      "decision": "accepted"
+    },
+    {
+      "run": 108,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 1.01,
+      "direction": "+",
+      "cost_best": 816.0,
+      "cost_candidate": 966.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 109,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 92.0,
+      "tried_value": 93.0,
+      "direction": "+",
+      "cost_best": 816.0,
+      "cost_candidate": 849.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 110,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.693,
+      "direction": "-",
+      "cost_best": 816.0,
+      "cost_candidate": 923.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 111,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1000.0,
+      "tried_value": 990.0,
+      "direction": "-",
+      "cost_best": 816.0,
+      "cost_candidate": 817.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 112,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 2.97,
+      "direction": "-",
+      "cost_best": 816.0,
+      "cost_candidate": 816.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 113,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 39.0,
+      "direction": "-",
+      "cost_best": 816.0,
+      "cost_candidate": 1015.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 114,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 9.0,
+      "direction": "-",
+      "cost_best": 816.0,
+      "cost_candidate": 816.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 115,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 3960.0,
+      "direction": "-",
+      "cost_best": 816.0,
+      "cost_candidate": 816.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 116,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 855.0,
+      "tried_value": 866.25,
+      "direction": "+",
+      "cost_best": 816.0,
+      "cost_candidate": 885.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 117,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 792.0,
+      "direction": "-",
+      "cost_best": 816.0,
+      "cost_candidate": 908.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 118,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.222,
+      "direction": "+",
+      "cost_best": 816.0,
+      "cost_candidate": 936.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 119,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3030.0,
+      "tried_value": 3060.0,
+      "direction": "+",
+      "cost_best": 816.0,
+      "cost_candidate": 902.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 120,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 0.99,
+      "direction": "-",
+      "cost_best": 816.0,
+      "cost_candidate": 1044.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 121,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 92.0,
+      "tried_value": 91.0,
+      "direction": "-",
+      "cost_best": 816.0,
+      "cost_candidate": 814.0,
+      "decision": "accepted"
+    },
+    {
+      "run": 122,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.707,
+      "direction": "+",
+      "cost_best": 814.0,
+      "cost_candidate": 927.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 123,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1000.0,
+      "tried_value": 1010.0,
+      "direction": "+",
+      "cost_best": 814.0,
+      "cost_candidate": 808.0,
+      "decision": "accepted"
+    },
+    {
+      "run": 124,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 3.03,
+      "direction": "+",
+      "cost_best": 808.0,
+      "cost_candidate": 983.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 125,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 41.0,
+      "direction": "+",
+      "cost_best": 808.0,
+      "cost_candidate": 1106.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 126,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 11.0,
+      "direction": "+",
+      "cost_best": 808.0,
+      "cost_candidate": 808.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 127,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 4040.0,
+      "direction": "+",
+      "cost_best": 808.0,
+      "cost_candidate": 808.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 128,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 855.0,
+      "tried_value": 846.0,
+      "direction": "-",
+      "cost_best": 808.0,
+      "cost_candidate": 933.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 129,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 808.0,
+      "direction": "+",
+      "cost_best": 808.0,
+      "cost_candidate": 808.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 130,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.218,
+      "direction": "-",
+      "cost_best": 808.0,
+      "cost_candidate": 938.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 131,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3030.0,
+      "tried_value": 3000.0,
+      "direction": "-",
+      "cost_best": 808.0,
+      "cost_candidate": 832.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 132,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 1.01,
+      "direction": "+",
+      "cost_best": 808.0,
+      "cost_candidate": 960.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 133,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 91.0,
+      "tried_value": 90.0,
+      "direction": "-",
+      "cost_best": 808.0,
+      "cost_candidate": 808.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 134,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.693,
+      "direction": "-",
+      "cost_best": 808.0,
+      "cost_candidate": 883.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 135,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1010.0,
+      "tried_value": 1020.0,
+      "direction": "+",
+      "cost_best": 808.0,
+      "cost_candidate": 807.0,
+      "decision": "accepted"
+    },
+    {
+      "run": 136,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 2.97,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 137,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 39.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 1027.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 138,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 9.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 139,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 3960.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 140,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 855.0,
+      "tried_value": 864.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 876.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 141,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 792.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 899.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 142,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.222,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 930.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 143,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3030.0,
+      "tried_value": 3060.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 952.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 144,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 0.99,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 968.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 145,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 91.0,
+      "tried_value": 92.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 808.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 146,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.707,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 926.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 147,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1020.0,
+      "tried_value": 1030.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 809.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 148,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 3.03,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 985.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 149,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 41.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 1108.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 150,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 11.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 151,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 4040.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 152,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 855.0,
+      "tried_value": 846.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 932.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 153,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 808.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 154,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.218,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 915.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 155,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3030.0,
+      "tried_value": 3000.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 832.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 156,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 1.01,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 872.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 157,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 91.0,
+      "tried_value": 90.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 158,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.693,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 883.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 159,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1020.0,
+      "tried_value": 1010.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 808.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 160,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 2.97,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 161,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 39.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 1027.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 162,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 9.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 163,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 3960.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 164,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 855.0,
+      "tried_value": 864.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 876.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 165,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 792.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 899.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 166,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.222,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 930.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 167,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3030.0,
+      "tried_value": 3060.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 952.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 168,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 0.99,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 968.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 169,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 91.0,
+      "tried_value": 92.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 808.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 170,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.707,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 926.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 171,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1020.0,
+      "tried_value": 1030.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 809.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 172,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 3.03,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 985.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 173,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 41.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 1108.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 174,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 11.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 175,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 4040.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 176,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 855.0,
+      "tried_value": 846.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 932.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 177,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 808.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 178,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.218,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 915.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 179,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3030.0,
+      "tried_value": 3000.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 832.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 180,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 1.01,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 872.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 181,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 91.0,
+      "tried_value": 90.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 182,
+      "constant": "THRUST_ANGLE_FACTOR",
+      "old_value": 0.7,
+      "tried_value": 0.693,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 883.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 183,
+      "constant": "BRAKING_ZONE_MIN",
+      "old_value": 1020.0,
+      "tried_value": 995.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 815.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 184,
+      "constant": "BRAKING_ZONE_SPEED_MULT",
+      "old_value": 3.0,
+      "tried_value": 2.97,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 185,
+      "constant": "BRAKING_THRUST_CAP",
+      "old_value": 40.0,
+      "tried_value": 39.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 1027.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 186,
+      "constant": "BOOST_ANGLE_MAX_DEG",
+      "old_value": 10.0,
+      "tried_value": 9.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 187,
+      "constant": "BOOST_DIST_MIN",
+      "old_value": 4000.0,
+      "tried_value": 3960.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 807.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 188,
+      "constant": "SHIELD_DIST_TRIGGER",
+      "old_value": 855.0,
+      "tried_value": 864.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 876.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 189,
+      "constant": "SHIELD_PREDICTED_DIST_TRIGGER",
+      "old_value": 800.0,
+      "tried_value": 792.0,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 899.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 190,
+      "constant": "TARGET_BLEND_MAX_WEIGHT",
+      "old_value": 0.22,
+      "tried_value": 0.222,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 930.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 191,
+      "constant": "TARGET_BLEND_DIST_NORM",
+      "old_value": 3030.0,
+      "tried_value": 3060.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 952.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 192,
+      "constant": "DRIFT_CORRECTION_FACTOR",
+      "old_value": 1.0,
+      "tried_value": 0.99,
+      "direction": "-",
+      "cost_best": 807.0,
+      "cost_candidate": 968.0,
+      "decision": "rejected"
+    },
+    {
+      "run": 193,
+      "constant": "THRUST_ZERO_ANGLE_DEG",
+      "old_value": 91.0,
+      "tried_value": 92.0,
+      "direction": "+",
+      "cost_best": 807.0,
+      "cost_candidate": 808.0,
+      "decision": "rejected"
+    }
+  ]
+}

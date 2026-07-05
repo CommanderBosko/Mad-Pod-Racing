@@ -5,7 +5,7 @@ description: Runs one compass-search hill-climbing iteration over the Mad Pod Ra
 
 # Tune Bot — Loop
 
-> ## ⚙️ Loop Training Mode: **ON**
+> ## ⚙️ Loop Training Mode: **OFF**
 > Flip this toggle by changing the line above to `OFF`. It changes how the loop runs:
 >
 > **When ON (default):**
@@ -23,11 +23,11 @@ description: Runs one compass-search hill-climbing iteration over the Mad Pod Ra
 
 ## Goal
 
-Try one nudge to one of `main.cpp`'s named tunable heuristic constants, A/B-score it against the current `main.cpp` via the physics harness, and keep the nudge only if it scores strictly better — one coordinate-ascent step per run.
+Try one nudge to one of `main.cpp`'s named tunable heuristic constants, A/B-score it against the current `main.cpp` via the physics harness, and keep the nudge only if it scores strictly better — one coordinate-ascent step per run. Accepted nudges are committed immediately (each is a validated single-line diff, trivially revertible).
 
 ## Overall done-rule
 
-One candidate nudge was tried against current-best `main.cpp` via `tests/harness/mpr_harness`, a scalarized-cost accept/reject decision was made, `.claude/loops/tune-bot/state.json` reflects it (updated `history`, round-robin index, step size / direction for the tried constant), and `main.cpp` is either unchanged (rejected) or holds the strictly-better candidate (accepted, left uncommitted for review).
+One candidate nudge was tried against current-best `main.cpp` via `tests/harness/mpr_harness`, a scalarized-cost accept/reject decision was made, `tune-bot-runs/state.json` reflects it (updated `history`, round-robin index, step size / direction for the tried constant), and `main.cpp` is either unchanged (rejected) or holds the strictly-better candidate with that change **committed** to git (accepted).
 
 ## Steps
 
@@ -35,7 +35,7 @@ For each step: read its done-rule FIRST. In Training Mode ON, if the done-rule a
 passes, skip the step and tell me. Otherwise run it; if it fails, retry up to the cap,
 then stop and report which step blocked.
 
-1. **Read prior notes** — read the most recent `.claude/loops/tune-bot/memory-*.md` (if any) for its "Remember next run" section (e.g. a prior plateau warning). This is advisory only — the actual search state (step sizes, round-robin index, per-constant fail streaks, full history) lives in `.claude/loops/tune-bot/state.json`, owned directly by the script in step 3.
+1. **Read prior notes** — read the most recent `tune-bot-runs/memory-*.md` (if any) for its "Remember next run" section (e.g. a prior plateau warning). This is advisory only — the actual search state (step sizes, round-robin index, per-constant fail streaks, full history) lives in `tune-bot-runs/state.json`, owned directly by the script in step 3.
    - Done-rule: latest memory file (if one exists) has been read and its notes considered before continuing.
 
 2. **Confirm `main.cpp` builds clean as the current best** — `g++ -std=c++17 -O2 -Wall -Wextra -o /tmp/tune_bot_sanity main.cpp` from the repo root.
@@ -44,26 +44,36 @@ then stop and report which step blocked.
 3. **Run one compass-search iteration** — `python3 .claude/skills/tune-bot/scripts/tune_step.py` from the repo root (give it a generous timeout, 280s+ — it covers 4 tracks through the harness). It picks the next constant round-robin, nudges it by its current per-constant step size in its next-due direction, builds both the current-best and candidate binaries, runs `tests/harness/mpr_harness`, computes a scalarized cost per side (turns-to-finish summed across tracks, DNF/CRASH as a 1000 penalty, +100/checkpoint missed, +50/compute-budget violation, −boost-turns-saved), and overwrites `main.cpp` with the candidate iff its cost is strictly lower. It always updates `state.json`: advances the round-robin index, flips or shrinks the tried constant's step/direction on rejection, and appends a history entry.
    - Done-rule: script exits 0 and prints a JSON summary containing `constant`, `old_value`, `tried_value`, `cost_best`, `cost_candidate`, `decision` (`accepted`/`rejected`), and `plateaued`.
 
-4. **Report the outcome** — summarize in plain English: which constant was tried and in which direction, old value → tried value, cost_best vs cost_candidate, and the decision. If `main.cpp` changed, explicitly note it's an **uncommitted** edit (this loop never commits on its own — the user reviews/commits accepted nudges in their own batches). If `plateaued` is true (a full round-robin cycle with zero acceptances), say so and suggest either treating the search as converged at current step sizes, or manually widening a step in `state.json` to keep probing.
+4. **If accepted, commit it** — `git diff --stat main.cpp` first to confirm the diff touches only the tunable-constants block (the one named constant, nothing else). If it doesn't, stop and report — do not commit. Otherwise `git add main.cpp` and commit with a message naming the constant, old→new value, and the cost delta, e.g.:
+   ```
+   Tune <CONSTANT> <old> -> <new> (tune-bot run <n>)
+
+   <one-line reason from the harness scorecard>. Cost <cost_best> -> <cost_candidate>.
+
+   Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+   ```
+   - Done-rule: if accepted, `git log -1 --stat` shows a new commit touching only `main.cpp`'s one changed line, and `git status --short main.cpp` is clean. If rejected, skip this step entirely (nothing to commit).
+
+5. **Report the outcome** — summarize in plain English: which constant was tried and in which direction, old value → tried value, cost_best vs cost_candidate, and the decision. If accepted, give the commit hash. If `plateaued` is true (a full round-robin cycle with zero acceptances), say so and suggest either treating the search as converged at current step sizes, or manually widening a step in `state.json` to keep probing.
    - Done-rule: a plain-English summary covering all of the above has been given.
 
 ## Verification plan
 
 Before declaring the run done, prove the overall done-rule holds:
 - `g++ -std=c++17 -O2 -Wall -Wextra -o /tmp/tune_bot_verify main.cpp` exits 0 (main.cpp still compiles, whichever way the decision went).
-- If accepted: `git diff --stat main.cpp` shows a change touching only the tunable-constants block (sanity check the script only changed the one named constant, nothing else).
-- `.claude/loops/tune-bot/state.json`'s last `history` entry's `run` matches its top-level `run_count`.
-If any check fails, the run is NOT done — record it in the Memory file and stop.
+- If accepted: `git status --short main.cpp` is clean (the commit in step 4 landed) and `git show --stat HEAD` touches only `main.cpp`.
+- `tune-bot-runs/state.json`'s last `history` entry's `run` matches its top-level `run_count`.
+If any check fails, the run is NOT done — record it in the Memory file and stop. Never force-fix a failed commit check by amending or resetting; report it and stop.
 
 ## End-of-run: write two files (ALWAYS)
 
 Resolve `<today>` as the current date (YYYY-MM-DD). Write BOTH files into
-`.claude/loops/tune-bot/`:
+`tune-bot-runs/`:
 
-1. **Output** → `.claude/loops/tune-bot/output-<today>.md`
+1. **Output** → `tune-bot-runs/output-<today>.md`
    The actual narrative this run produced: which constant, direction, old → tried value, the harness scorecard summary (per-track turns/checkpoints-missed/compute-violations/boost deltas for both sides), the computed costs, and the decision.
 
-2. **Memory** → `.claude/loops/tune-bot/memory-<today>.md`, with this shape:
+2. **Memory** → `tune-bot-runs/memory-<today>.md`, with this shape:
    ```
    # tune-bot run — <today>
 
@@ -89,6 +99,6 @@ Resolve `<today>` as the current date (YYYY-MM-DD). Write BOTH files into
 ## Report
 
 Tell me: the mode, the result, which steps were skipped vs re-run, where the two files
-were written, and anything from "Remember next run" worth acting on. If `main.cpp` was
-changed, remind me it's uncommitted and ask whether I want to commit it now or keep
-iterating first.
+were written, and anything from "Remember next run" worth acting on. If the nudge was
+accepted, give me the commit hash and message — it's already committed, nothing further
+needed from me.

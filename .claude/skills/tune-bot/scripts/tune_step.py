@@ -6,7 +6,7 @@ its next-due direction, builds both binaries, runs the physics harness, scores
 both sides from the harness's own per-bot columns, and accepts the nudge into
 main.cpp iff it scores strictly better. Search metadata (step sizes, next
 direction, fail streaks, round-robin index, history) persists in
-.claude/loops/tune-bot/state.json across invocations. main.cpp itself is the
+tune-bot-runs/state.json across invocations. main.cpp itself is the
 running "current best" -- accepted nudges are left as an uncommitted edit for
 the user to review/commit.
 """
@@ -148,7 +148,7 @@ def score_harness_output(output: str) -> tuple:
 def main() -> None:
     root = repo_root()
     main_cpp_path = root / "main.cpp"
-    state_path = root / ".claude" / "loops" / "tune-bot" / "state.json"
+    state_path = root / "tune-bot-runs" / "state.json"
     harness_bin = root / "tests" / "harness" / "mpr_harness"
 
     best_text = main_cpp_path.read_text()

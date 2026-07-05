@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(tune-bot-runs/output-*.md)",
+      "Edit(tune-bot-runs/memory-*.md)",
+      "Write(tune-bot-runs/output-*.md)",
+      "Write(tune-bot-runs/memory-*.md)"
+    ]
+  }
+}

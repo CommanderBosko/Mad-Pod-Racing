@@ -20,7 +20,7 @@ static const int    BOOST_DIST_MIN                = 4000;   // min distance-to-c
 static const double SHIELD_DIST_TRIGGER           = 855.0;  // opponent proximity that arms the shield check
 static const double SHIELD_PREDICTED_DIST_TRIGGER = 800.0;  // predicted 1-turn-ahead distance that fires shield
 static const double TARGET_BLEND_MAX_WEIGHT       = 0.22;    // max lookahead blend toward next-next checkpoint
-static const double TARGET_BLEND_DIST_NORM        = 3000.0; // distance at which lookahead blend saturates
+static const double TARGET_BLEND_DIST_NORM        = 3030.0; // distance at which lookahead blend saturates
 static const double DRIFT_CORRECTION_FACTOR       = 1.0;    // multiplier on velocity subtracted from aim point
 // --- end tunable constants ---
 

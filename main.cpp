@@ -12,7 +12,7 @@ using namespace std;
 // a fixed game rule (engine lockout duration), not a heuristic choice.
 static const int    THRUST_ZERO_ANGLE_DEG         = 91;     // angle beyond which thrust cuts to 0
 static const double THRUST_ANGLE_FACTOR           = 0.7;    // thrust falloff per degree of angle
-static const double BRAKING_ZONE_MIN              = 1010.0; // min braking-zone radius
+static const double BRAKING_ZONE_MIN              = 1020.0; // min braking-zone radius
 static const double BRAKING_ZONE_SPEED_MULT       = 3.0;    // braking-zone radius per unit speed
 static const int    BRAKING_THRUST_CAP            = 40;     // max thrust once inside braking zone
 static const int    BOOST_ANGLE_MAX_DEG           = 10;     // max angle to allow a boost
